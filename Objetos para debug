@@ -1,0 +1,5 @@
+-- Convertendo os objeto para debug
+select 'alter procedure '||owner||'.'||object_name||' compile debug;'
+   from dba_objects 
+      where object_type ='PACKAGE' -- Tipo de objeto
+     AND OWNER ='DB_SGP';  
