@@ -1,0 +1,22 @@
+-- Verificando as dependencias de um objeto
+SELECT  OWNER "Ativo_owner", 
+        NAME  "Ativo_nome" ,
+        TYPE,
+        REFERENCED_OWNER "Passivo_owner",
+        REFERENCED_NAME  "Passivo_nome" ,
+        REFERENCED_TYPE
+FROM DBA_DEPENDENCIES 
+WHERE NAME ='TRG_IUD_SERVICOS_ISS'; -- O que este objeto chama.(Ativo)
+/
+
+
+SELECT  OWNER "Ativo_owner", 
+        NAME  "Ativo_nome", 
+        TYPE,
+        REFERENCED_OWNER "Passivo_owner",
+        REFERENCED_NAME  "Passivo_nome" ,
+        REFERENCED_TYPE
+FROM DBA_DEPENDENCIES 
+WHERE REFERENCED_name ='TRG_IUD_SERVICOS_ISS';
+--AND   REFERENCED_OWNER = 'DB_PESSOA'; -- Onde este objeto está  sendo chamado.(Passivo)
+/
