@@ -1,0 +1,25 @@
+/*
+--> Leitura e escrita no disco.
+*/
+
+SELECT NVL(S.USERNAME, '(ORACLE)') AS USERNAME,
+       S.OSUSER,
+       S.SID,
+       S.INST_ID,
+       SI.PHYSICAL_READS,
+       S.SQL_ID,
+       SI.BLOCK_CHANGES,
+       SI.CONSISTENT_CHANGES,
+       SW.NAME    
+  FROM GV$SESSION     S,
+       GV$SESS_IO    SI,
+       GV$EVENT_NAME SW    
+WHERE S.INST_ID    = SI.INST_ID
+   AND S.SID       = SI.SID
+   AND S.USERNAME IS NOT NULL
+   AND S.STATUS    = 'ACTIVE'
+   AND ROWNUM     <= 5
+   AND SW.WAIT_CLASS# = S.WAIT_CLASS#
+   AND SW.INST_ID     = SW.INST_ID
+   AND SW.EVENT#      = S.EVENT#
+ORDER BY SI.PHYSICAL_READS DESC;
