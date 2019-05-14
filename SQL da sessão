@@ -1,0 +1,21 @@
+--> Identificar o SQL que está executando na sessão corrente.
+SELECT
+    nvl(a.username,'(ORACLE)') AS username,
+    a.sid,
+    a.inst_id,
+    a.osuser,
+    a.machine,
+    a.module,
+    b.sql_fulltext,
+    sysdate
+FROM
+    gv$session a
+    INNER JOIN gv$sql b ON ( b.sql_id = a.sql_id )
+WHERE
+    sid IN (333)              
+       --   MACHINE like '%jdbcclient%'
+       --  b.SQL_ID='c3g2nbn2gfzj0'
+ORDER BY
+    sid;
+
+
